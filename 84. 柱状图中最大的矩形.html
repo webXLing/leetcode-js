@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>84. 柱状图中最大的矩形</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  /**
+   * @param {number[]} heights
+   * @return {number}
+   */
+  // var largestRectangleArea = function (heights) {
+  //   if (heights.length === 0) return 0;
+  //   if (heights.length === 1) return heights[0];
+  //   let result = 0;// 结果
+  //   for (let index = 0; index < heights.length; index++) {
+  //     let minHeight = heights[index]; // 最小高度
+
+  //     const element = heights[index];
+  //     for (let k = index + 1; k < heights.length; k++) {
+  //       if (minHeight > 0) {
+  //         minHeight = heights[k] > minHeight ? minHeight : heights[k]
+  //       } else {
+  //         minHeight = heights[k]
+  //       }
+  //       let width = heights[index] > 0 && heights[k] > 0 ? (k - index + 1) : (k - index)
+  //       console.log('minHeight', minHeight);
+  //       console.log('width', width);
+
+  //       let res = minHeight * width
+  //       result = Math.max(res, result)
+
+  //     }
+  //   }
+  //   console.log('result', result);
+
+  //   return result;
+
+  // };
+
+
+  var largestRectangleArea = function (heights) {
+    let area = 0,
+      i = 0,
+      stack = [];
+
+    while (i <= heights.length) {
+      console.log('第', i);
+
+      if (stack.length === 0 || heights[stack[stack.length - 1]] <= heights[i]) {
+        stack.push(i++);
+        console.log('stack', stack);
+      }
+      else {
+        let height = heights[stack.pop()];
+        let width = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;
+        console.log('height', height);
+        console.log('width', width);
+
+
+        area = Math.max(area, height * width);
+      }
+    }
+
+    return area;
+  };
+
+
+  largestRectangleArea([9, 0])
+  console.log('-------------');
+
+  largestRectangleArea([2, 1, 5, 6, 2, 3])
+
+
+</script>
+
+</html>
